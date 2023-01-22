@@ -59,7 +59,7 @@ fun getPilotosInit() = listOf(
         planetaOrigen = "Desconocido",
         fechaIncorporacion = LocalDate.now().minusYears(5),
         navePilotada = getNavesInit()[3],
-        capitan = true
+        capitan = false
     )
 )
 

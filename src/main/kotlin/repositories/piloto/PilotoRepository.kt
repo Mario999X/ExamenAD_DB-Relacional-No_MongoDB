@@ -15,6 +15,12 @@ class PilotoRepository : CrudRepository<Piloto, String> {
         return MongoDbManager.database.getCollection<Piloto>().find().toList()
     }
 
+    override fun update(entity: Piloto): Piloto {
+        println("update")
+        MongoDbManager.database.getCollection<Piloto>().save(entity)
+        return entity
+    }
+
     override fun delete(entity: Piloto): Boolean {
         println("delete $entity")
         return MongoDbManager.database.getCollection<Piloto>().deleteOneById(entity.id).wasAcknowledged()

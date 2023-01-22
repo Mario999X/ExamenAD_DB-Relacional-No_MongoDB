@@ -29,6 +29,11 @@ class ExamenController(
         return pilotoRepository.findById(id)
     }
 
+    fun updatePiloto(piloto: Piloto) {
+        println("updatePiloto: $piloto")
+        pilotoRepository.save(piloto)
+    }
+
     fun deletePiloto(it: Piloto): Boolean {
         log.info("deletePiloto")
         return pilotoRepository.delete(it)
@@ -42,13 +47,35 @@ class ExamenController(
 
     fun createBatalla(batalla: Batalla): Batalla {
         log.info("createBatalla")
-        batallaRepository.save(batalla)
+        var capitan = 0
+        batalla.pilotosInvolucrados.forEach {
+            if (it.capitan) {
+                capitan++
+            }
+        }
+        if (capitan >= 2) {
+            System.err.println("Error en la creacion de batalla ${batalla.id} | Exceso de capitanes($capitan)")
+        } else batallaRepository.save(batalla)
         return batalla
     }
 
     fun getBatallaById(id: String): Batalla? {
         log.info("getBatallaById: $id")
         return batallaRepository.findById(id)
+    }
+
+    fun updateBatalla(batalla: Batalla): Batalla {
+        log.info("updateBatalla: $batalla")
+        var capitan = 0
+        batalla.pilotosInvolucrados.forEach {
+            if (it.capitan) {
+                capitan++
+            }
+        }
+        if (capitan >= 2) {
+            System.err.println("Error en la actualizacion de batalla ${batalla.id} | Exceso de capitanes($capitan)")
+        } else batallaRepository.save(batalla)
+        return batalla
     }
 
     fun deleteBatalla(it: Batalla): Boolean {

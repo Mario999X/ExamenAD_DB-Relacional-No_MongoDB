@@ -14,6 +14,12 @@ class BatallaRepository : CrudRepository<Batalla, String> {
         return MongoDbManager.database.getCollection<Batalla>().find().toList()
     }
 
+    override fun update(entity: Batalla): Batalla {
+        println("update")
+        MongoDbManager.database.getCollection<Batalla>().save(entity)
+        return entity
+    }
+
     override fun delete(entity: Batalla): Boolean {
         println("delete $entity")
         return MongoDbManager.database.getCollection<Batalla>().deleteOneById(entity.id).wasAcknowledged()
